@@ -6,6 +6,8 @@ use App\Filament\Resources\LocationResource\Pages;
 use App\Models\Location;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\Placeholder;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -28,23 +30,31 @@ class LocationResource extends Resource
     {
         return $form
             ->schema([
-                Placeholder::make('created_at')
-                    ->label('Created Date')
-                    ->content(fn (?Location $record): string => $record?->created_at?->diffForHumans() ?? '-'),
-
-                Placeholder::make('updated_at')
-                    ->label('Last Modified Date')
-                    ->content(fn (?Location $record): string => $record?->updated_at?->diffForHumans() ?? '-'),
 
                 TextInput::make('name')
                     ->required(),
 
-                TextInput::make('description'),
+                Select::make('parent_id')->label('Parent Location')
+                    ->relationship(name: 'parent', titleAttribute: 'name', ignoreRecord: true)
+                    ->createOptionForm([
+                        TextInput::make('name')
+                            ->required(),
+                        Textarea::make('description')->columnSpanFull()->rows(3)->autosize(),
+                    ]),
 
-                TextInput::make('parent_id')
-                    ->integer(),
+                Textarea::make('description')->columnSpanFull()->rows(3)->autosize(),
 
-                Checkbox::make('is_active'),
+                // Checkbox::make('is_active')->default(true),
+
+                Placeholder::make('created_at')
+                    ->label('Created Date')
+                    ->content(fn (?Location $record): string => $record?->created_at?->diffForHumans() ?? '-')
+                    ->hiddenOn(['create']),
+
+                Placeholder::make('updated_at')
+                    ->label('Last Modified Date')
+                    ->content(fn (?Location $record): string => $record?->updated_at?->diffForHumans() ?? '-')
+                    ->hiddenOn(['create']),
             ]);
     }
 
@@ -58,9 +68,9 @@ class LocationResource extends Resource
 
                 TextColumn::make('description'),
 
-                TextColumn::make('parent_id'),
+                TextColumn::make('parent.name'),
 
-                TextColumn::make('is_active'),
+                // TextColumn::make('is_active'),
             ])
             ->filters([
                 //
@@ -80,8 +90,9 @@ class LocationResource extends Resource
     {
         return [
             'index' => Pages\ListLocations::route('/'),
-            'create' => Pages\CreateLocation::route('/create'),
-            'edit' => Pages\EditLocation::route('/{record}/edit'),
+            // to make separate pages you can uncomment this:
+            /*'create' => Pages\CreateLocation::route('/create'),
+            'edit' => Pages\EditLocation::route('/{record}/edit'),*/
         ];
     }
 
