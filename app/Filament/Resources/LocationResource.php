@@ -15,6 +15,7 @@ use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Columns\Layout\Split;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -62,22 +63,29 @@ class LocationResource extends Resource
     {
         return $table
             ->columns([
+                //                Split::make([
+
                 TextColumn::make('name')
+                    ->copyable()
+                    ->copyMessage('Location name copied')
+                    ->copyMessageDuration(1500)
+                    ->label(__('Name'))
                     ->searchable()
                     ->sortable(),
 
-                TextColumn::make('description'),
+                // TextColumn::make('description')->label(__('Description')),
 
-                TextColumn::make('parent.name'),
+                TextColumn::make('parent.name')->label(__('Parent Location')),
 
                 // TextColumn::make('is_active'),
+                //                ]),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                EditAction::make(),
-                DeleteAction::make(),
+                EditAction::make()->button(),
+                DeleteAction::make()->button(),
             ])
             ->bulkActions([
                 BulkActionGroup::make([
