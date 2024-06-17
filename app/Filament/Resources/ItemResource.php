@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Exports\ItemExporter;
+use App\Filament\Imports\ItemImporter;
 use App\Filament\Resources\ItemResource\Pages;
 use App\Models\Item;
 use Filament\Forms\Components\Checkbox;
@@ -17,8 +19,10 @@ use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\ExportAction;
 use Filament\Tables\Actions\ForceDeleteAction;
 use Filament\Tables\Actions\ForceDeleteBulkAction;
+use Filament\Tables\Actions\ImportAction;
 use Filament\Tables\Actions\RestoreAction;
 use Filament\Tables\Actions\RestoreBulkAction;
 use Filament\Tables\Columns\CheckboxColumn;
@@ -224,6 +228,11 @@ class ItemResource extends Resource
                 DeleteAction::make(),
                 RestoreAction::make(),
                 ForceDeleteAction::make(),
+            ])
+            ->headerActions([
+                ImportAction::make()
+                    ->importer(ItemImporter::class),
+                ExportAction::make()->exporter(ItemExporter::class),
             ])
             ->bulkActions([
                 BulkActionGroup::make([
