@@ -7,6 +7,7 @@ use App\Models\Item;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Placeholder;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -41,11 +42,6 @@ class ItemResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('ulid')
-                    ->label('ULID')
-                    ->disabled()
-                    ->hiddenOn(['create']),
-
                 Select::make('location_id')
                     ->relationship(name: 'location', titleAttribute: 'name')
                     ->createOptionForm([
@@ -57,55 +53,94 @@ class ItemResource extends Resource
                     ->searchable()
                     ->required(),
 
+                TextInput::make('ulid')
+                    ->label('Unique ID')
+                    ->disabled()
+                    ->hiddenOn(['create']),
+
                 TextInput::make('name')
+                    ->label('Item name')
                     ->columnSpanFull()
                     ->required(),
 
-                Textarea::make('description')->columnSpanFull()->rows(3)->autosize(),
+                Textarea::make('description')
+                    ->label('Item description')->columnSpanFull()->rows(5
+                    )->autosize(),
 
-                TextInput::make('import_ref'),
+                // todo: add tags https://filamentphp.com/plugins/filament-spatie-tags
 
-                TextInput::make('notes'),
+                Section::make('Advanced Details')
+                    ->schema([
 
-                TextInput::make('quantity')
-                    ->default(1)
-                    ->required()
-                    ->integer(),
+                        // todo: add attachments https://filamentphp.com/plugins/filament-spatie-media-library
 
-                TextInput::make('asset_id')
-                    ->integer(),
+                        TextInput::make('import_ref'),
 
-                Checkbox::make('insured'),
+                        TextInput::make('notes'),
 
-                Checkbox::make('archived'),
+                        TextInput::make('quantity')
+                            ->default(1)
+                            ->required()
+                            ->integer(),
 
-                TextInput::make('serial_number'),
+                        TextInput::make('asset_id')
+                            ->label('Asset ID')
+                            ->integer(),
 
-                TextInput::make('model_number'),
+                        Checkbox::make('insured')->label('Insured'),
 
-                TextInput::make('manufacturer'),
+                        Checkbox::make('archived'),
 
-                Checkbox::make('lifetime_warranty'),
+                        TextInput::make('serial_number'),
 
-                DatePicker::make('warranty_expires'),
+                        TextInput::make('model_number'),
 
-                Textarea::make('warranty_details')->columnSpanFull()->rows(3)->autosize(),
+                        TextInput::make('manufacturer'),
+                    ])
+                    ->collapsible()->collapsed()->persistCollapsed()
+                    ->hiddenOn(['create']),
 
-                DatePicker::make('purchase_time'),
 
-                TextInput::make('purchase_from'),
 
-                TextInput::make('purchase_price')
-                    ->numeric(),
 
-                DatePicker::make('sold_time'),
+                Section::make('Purchase Details')
+                    ->schema([
 
-                TextInput::make('sold_to'),
+                        DatePicker::make('purchase_time'),
 
-                TextInput::make('sold_price')
-                    ->numeric(),
+                        TextInput::make('purchase_from'),
 
-                Textarea::make('sold_notes')->columnSpanFull()->rows(3)->autosize(),
+                        TextInput::make('purchase_price')
+                            ->numeric(),
+
+                    ])
+                    ->collapsible()->collapsed()->persistCollapsed()
+                    ->hiddenOn(['create']),
+                Section::make('Warranty Information')
+                    ->schema([
+                        Checkbox::make('lifetime_warranty'),
+
+                        DatePicker::make('warranty_expires'),
+
+                        Textarea::make('warranty_details')->columnSpanFull()->rows(3)->autosize(),
+                    ])
+                    ->collapsible()->collapsed()->persistCollapsed()
+                    ->hiddenOn(['create']),
+
+                Section::make('Sold Details')
+                    ->schema([
+
+                        DatePicker::make('sold_time'),
+
+                        TextInput::make('sold_to'),
+
+                        TextInput::make('sold_price')
+                            ->numeric(),
+
+                        Textarea::make('sold_notes')->columnSpanFull()->rows(3)->autosize(),
+                    ])
+                    ->collapsible()->collapsed()->persistCollapsed()
+                    ->hiddenOn(['create']),
 
                 Placeholder::make('created_at')
                     ->label('Created Date')
@@ -116,6 +151,7 @@ class ItemResource extends Resource
                     ->label('Last Modified Date')
                     ->content(fn (?Item $record): string => $record?->updated_at?->diffForHumans() ?? '-')
                     ->hiddenOn(['create']),
+
             ]);
     }
 
@@ -125,7 +161,7 @@ class ItemResource extends Resource
             ->columns([
                 // TextColumn::make('ulid'),
 
-                TextInputColumn::make('name')
+                TextColumn::make('name')
                     ->searchable()
                     ->sortable(),
 
@@ -135,7 +171,7 @@ class ItemResource extends Resource
 
                 // TextColumn::make('notes')->searchable(),
 
-                TextInputColumn::make('quantity')->searchable(),
+                TextColumn::make('quantity')->searchable(),
 
                 CheckboxColumn::make('insured'),
 
@@ -202,7 +238,7 @@ class ItemResource extends Resource
     {
         return [
             'index' => Pages\ListItems::route('/'),
-            'create' => Pages\CreateItem::route('/create'),
+            // 'create' => Pages\CreateItem::route('/create'),
             'edit' => Pages\EditItem::route('/{record}/edit'),
         ];
     }
