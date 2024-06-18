@@ -120,8 +120,8 @@ class LocationResource extends Resource
         return [
             'index' => Pages\ListLocations::route('/'),
             // to make separate pages you can uncomment this:
-            /*'create' => Pages\CreateLocation::route('/create'),
-            'edit' => Pages\EditLocation::route('/{record}/edit'),*/
+            /*'create' => Pages\CreateLocation::route('/create'),*/
+            'edit' => Pages\EditLocation::route('/{record}/edit'),
         ];
     }
 
