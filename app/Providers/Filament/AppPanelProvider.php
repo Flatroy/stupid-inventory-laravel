@@ -40,11 +40,10 @@ class AppPanelProvider extends PanelProvider
             ->tenantRegistration(RegisterTeam::class)
             ->tenantProfile(EditTeamProfile::class)
             ->tenantMenuItems([
-                MenuItem::make()
+                /*MenuItem::make()
                     ->label('Settings')
                     ->url(fn (): string => '/')
-                    ->icon('heroicon-m-cog-8-tooth'),
-                // ...
+                    ->icon('heroicon-m-cog-8-tooth'),*/
             ])
             ->spa()
             ->databaseNotifications()
