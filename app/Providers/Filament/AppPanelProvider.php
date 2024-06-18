@@ -2,9 +2,15 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\Auth\Login;
+use App\Filament\Pages\Tenancy\EditTeamProfile;
+use App\Filament\Pages\Tenancy\RegisterTeam;
+use App\Http\Middleware\ApplyTenantScopes;
+use App\Models\Team;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
+use Filament\Navigation\MenuItem;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
@@ -26,7 +32,20 @@ class AppPanelProvider extends PanelProvider
             ->default()
             ->id('app')
             ->path('/app')
-            // ->login()
+            ->login(Login::class)
+            ->registration()
+            ->passwordReset()
+            // ->emailVerification()
+            ->tenant(Team::class)
+            ->tenantRegistration(RegisterTeam::class)
+            ->tenantProfile(EditTeamProfile::class)
+            ->tenantMenuItems([
+                MenuItem::make()
+                    ->label('Settings')
+                    ->url(fn (): string => '/')
+                    ->icon('heroicon-m-cog-8-tooth'),
+                // ...
+            ])
             ->spa()
             ->databaseNotifications()
             ->colors([
@@ -42,6 +61,13 @@ class AppPanelProvider extends PanelProvider
                 Widgets\AccountWidget::class,
                 Widgets\FilamentInfoWidget::class,
             ])
+            ->userMenuItems([
+                MenuItem::make()
+                    ->label('My Account')
+                    ->url(fn (): string => route('profile.show')),
+
+            ])
+            ->unsavedChangesAlerts()
             ->middleware([
                 EncryptCookies::class,
                 AddQueuedCookiesToResponse::class,
@@ -53,6 +79,9 @@ class AppPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
             ])
+            ->tenantMiddleware([
+                ApplyTenantScopes::class,
+            ], isPersistent: true)
             ->authMiddleware([
                 Authenticate::class,
             ]);

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Filament\Facades\Filament;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -36,6 +37,7 @@ class Item extends Model
         'sold_price',
         'sold_notes',
         'location_id',
+        'team_id',
     ];
 
     protected static function boot()
@@ -44,12 +46,20 @@ class Item extends Model
 
         static::creating(function ($item) {
             $item->ulid = self::generateUlid();
+            if (auth()->check()) {
+                $item->team_id = Filament::getTenant()?->id;
+            }
         });
     }
 
     public function location(): BelongsTo
     {
         return $this->belongsTo(Location::class);
+    }
+
+    public function team(): BelongsTo
+    {
+        return $this->belongsTo(Team::class);
     }
 
     protected function casts(): array

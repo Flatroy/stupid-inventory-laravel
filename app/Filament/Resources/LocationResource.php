@@ -15,7 +15,6 @@ use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
-use Filament\Tables\Columns\Layout\Split;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -36,11 +35,31 @@ class LocationResource extends Resource
                     ->required(),
 
                 Select::make('parent_id')->label('Parent Location')
-                    ->relationship(name: 'parent', titleAttribute: 'name', ignoreRecord: true)
+                    ->relationship(
+                        name: 'parent',
+                        titleAttribute: 'name',
+                        ignoreRecord: true
+                    )
+                    ->preload()
+                    ->searchable()
                     ->createOptionForm([
                         TextInput::make('name')
                             ->required(),
-                        Textarea::make('description')->columnSpanFull()->rows(3)->autosize(),
+
+                        Textarea::make('description')
+                            ->columnSpanFull()
+                            ->rows(3)
+                            ->autosize(),
+
+                        Select::make('parent_id')
+                            ->label('Parent Location')
+                            ->relationship(
+                                name: 'parent',
+                                titleAttribute: 'name',
+                                ignoreRecord: true
+                            )
+                            ->preload()
+                            ->searchable(),
                     ]),
 
                 Textarea::make('description')->columnSpanFull()->rows(3)->autosize(),

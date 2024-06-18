@@ -50,7 +50,21 @@ class ItemResource extends Resource
                     ->createOptionForm([
                         TextInput::make('name')
                             ->required(),
-                        Textarea::make('description')->columnSpanFull()->rows(3)->autosize(),
+
+                        Textarea::make('description')
+                            ->columnSpanFull()
+                            ->rows(3)
+                            ->autosize(),
+
+                        Select::make('parent_id')
+                            ->label('Parent Location')
+                            ->relationship(
+                                name: 'parent',
+                                titleAttribute: 'name',
+                                ignoreRecord: true
+                            )
+                            ->preload()
+                            ->searchable(),
                     ])
                     ->preload()
                     ->searchable()

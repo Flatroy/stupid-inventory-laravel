@@ -36,10 +36,12 @@ WIP
   - [ ] Add attachments to items - https://filamentphp.com/plugins/filament-spatie-media-library
   - [ ] Show related items in Location view - https://filamentphp.com/docs/3.x/panels/resources/relation-managers#creating-a-relation-manager
   - [ ] Add QR code to items
-  - [ ] Add multi-tenancy support - https://filamentphp.com/docs/3.x/panels/tenancy
+  - [x] Add multi-tenancy support - https://filamentphp.com/docs/3.x/panels/tenancy
   - [ ] Add better import/export of items with relation to locations
+  - [ ] Add Laravel Octane
+  - [ ] Add Laravel Pulse
 
 
 ## Contributing
 
-Thank you for considering contributing to the project! All contributions are welcome.
+Thank you for choosing to contribute to the project! Any contribution is welcome.
