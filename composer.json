@@ -9,6 +9,7 @@
         "filament/filament": "^3.2",
         "laravel/framework": "^11.9",
         "laravel/jetstream": "^5.1",
+        "laravel/octane": "^2.4",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.0",
