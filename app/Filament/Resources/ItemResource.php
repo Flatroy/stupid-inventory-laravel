@@ -27,7 +27,6 @@ use Filament\Tables\Actions\RestoreAction;
 use Filament\Tables\Actions\RestoreBulkAction;
 use Filament\Tables\Columns\CheckboxColumn;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Columns\TextInputColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -103,9 +102,6 @@ class ItemResource extends Resource
                     ])
                     ->collapsible()->collapsed()->persistCollapsed()
                     ->hiddenOn(['create']),
-
-
-
 
                 Section::make('Purchase Details')
                     ->schema([
