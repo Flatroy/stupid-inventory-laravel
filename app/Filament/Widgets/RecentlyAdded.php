@@ -5,7 +5,6 @@ namespace App\Filament\Widgets;
 use App\Filament\Resources\ItemResource;
 use App\Models\Item;
 use Filament\Tables;
-use Filament\Tables\Columns\CheckboxColumn;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
 

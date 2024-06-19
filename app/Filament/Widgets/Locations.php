@@ -2,9 +2,7 @@
 
 namespace App\Filament\Widgets;
 
-use App\Filament\Resources\ItemResource;
 use App\Filament\Resources\LocationResource;
-use App\Models\Item;
 use App\Models\Location;
 use Filament\Tables;
 use Filament\Tables\Columns\Layout\Stack;
@@ -25,15 +23,15 @@ class Locations extends BaseWidget
             ->defaultSort('created_at', 'desc')
             ->columns([
                 Stack::make([
-                Tables\Columns\TextColumn::make('name')
-                    ->searchable()->sortable(),
-])
+                    Tables\Columns\TextColumn::make('name')
+                        ->searchable()->sortable(),
+                ]),
             ])
             ->contentGrid([
                 'md' => 2,
                 'xl' => 3,
             ])
-        ->actions([
+            ->actions([
                 Tables\Actions\Action::make('open')
                     ->url(fn (Location $record): string => LocationResource::getUrl('edit', ['record' => $record])),
             ]);
