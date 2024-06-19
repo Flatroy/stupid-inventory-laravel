@@ -13,6 +13,7 @@
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.0",
+        "monicahq/laravel-cloudflare": "^3.7",
         "spatie/laravel-ignition": "^2.8"
     },
     "require-dev": {
