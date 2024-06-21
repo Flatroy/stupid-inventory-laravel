@@ -156,6 +156,7 @@ class ItemResource extends Resource
                                 Builder\Block::make('image_field')
                                     ->schema([
                                         FileUpload::make('value')
+                                            ->disk('r2')
                                             ->label('Image')
                                             ->openable()
                                             ->previewable()
@@ -172,6 +173,7 @@ class ItemResource extends Resource
                                 Builder\Block::make('file_field')
                                     ->schema([
                                         FileUpload::make('value')
+                                            ->disk('r2')
                                             ->label('File(s)')
                                             ->reorderable()
                                             ->directory('file_attachments')
