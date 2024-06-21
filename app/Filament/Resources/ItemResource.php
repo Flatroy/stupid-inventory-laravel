@@ -112,7 +112,13 @@ class ItemResource extends Resource
 
                         TextInput::make('asset_id')
                             ->label('Asset ID')
-                            ->integer(),
+                            // must be like 000-000 but stored as int
+                            ->rules([
+                                'required',
+                                'regex:/^\d{3}-\d{3}$/',
+                            ])
+                            ->hint('Must be in format 000-000')
+        ,
 
                         Checkbox::make('insured')->label('Insured'),
 

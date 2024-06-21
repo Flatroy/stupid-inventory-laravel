@@ -82,4 +82,15 @@ class Item extends Model
     {
         return strtolower((string) Str::ulid());
     }
+
+    public function getAssetIdAttribute($value)
+    {
+        return $value ? sprintf('%03d-%03d', $value / 1000, $value % 1000) : null;
+    }
+    public function setAssetIdAttribute($value)
+    {
+        $value = preg_replace('/[^0-9]/', '', $value);
+
+        $this->attributes['asset_id'] = (int) $value;
+    }
 }
