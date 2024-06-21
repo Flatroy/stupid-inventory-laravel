@@ -38,6 +38,7 @@ class Item extends Model
         'sold_notes',
         'location_id',
         'team_id',
+        'fields',
     ];
 
     protected static function boot()
@@ -72,6 +73,7 @@ class Item extends Model
             'insured' => 'boolean',
             'archived' => 'boolean',
             'quantity' => 'integer',
+            'fields' => 'array',
         ];
     }
 

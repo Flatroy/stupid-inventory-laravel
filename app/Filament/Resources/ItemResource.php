@@ -6,8 +6,10 @@ use App\Filament\Exports\ItemExporter;
 use App\Filament\Imports\ItemImporter;
 use App\Filament\Resources\ItemResource\Pages;
 use App\Models\Item;
+use Filament\Forms\Components\Builder;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
@@ -30,7 +32,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\TextInputColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -100,7 +102,6 @@ class ItemResource extends Resource
                         Textarea::make('notes')->columnSpanFull()->rows(3)->autosize(),
 
                         \LaraZeus\Quantity\Components\Quantity::make('quantity')
-//                            ->heading('Quantity')
                             ->default(1)
                             ->stacked()
                             ->label('Quantity')
@@ -122,6 +123,59 @@ class ItemResource extends Resource
                         TextInput::make('manufacturer'),
                     ])
                     ->collapsible()->collapsed()->persistCollapsed()
+                    ->hiddenOn(['create']),
+
+                Section::make('Custom Fields')
+                    ->schema([
+                        Builder::make('fields')
+                            ->blocks([
+                                Builder\Block::make('text_field')
+                                    ->schema([
+                                        TextInput::make('name'),
+                                        TextInput::make('value'),
+
+                                    ])
+                                    ->columns(2),
+                                Builder\Block::make('paragraph_field')
+                                    ->schema([
+                                        TextInput::make('name'),
+
+                                        Textarea::make('value')
+                                            ->label('Value'),
+                                    ]),
+                                Builder\Block::make('image_field')
+                                    ->schema([
+                                        FileUpload::make('value')
+                                            ->label('Image')
+                                            ->openable()
+                                            ->previewable()
+                                            ->reorderable()
+                                            ->appendFiles()
+                                            ->imageEditor()
+                                            ->directory('image-attachments')
+                                            ->visibility('private')
+                                            ->image(),
+                                        TextInput::make('name')
+                                            ->label('Note'),
+                                    ]),
+                                Builder\Block::make('file_field')
+                                    ->schema([
+                                        FileUpload::make('value')
+                                            ->label('File(s)')
+                                            ->reorderable()
+                                            ->directory('file_attachments')
+                                            ->visibility('private')
+                                            ->downloadable()
+                                            ->appendFiles(),
+                                        TextInput::make('name')
+                                            ->label('Note'),
+                                    ]),
+                            ]),
+
+                    ])
+                    ->collapsible()
+                    ->collapsed()
+                    ->persistCollapsed()
                     ->hiddenOn(['create']),
 
                 Section::make('Purchase Details')
@@ -271,7 +325,7 @@ class ItemResource extends Resource
         ];
     }
 
-    public static function getEloquentQuery(): Builder
+    public static function getEloquentQuery(): EloquentBuilder
     {
         return parent::getEloquentQuery()
             ->withoutGlobalScopes([
@@ -279,7 +333,7 @@ class ItemResource extends Resource
             ]);
     }
 
-    public static function getGlobalSearchEloquentQuery(): Builder
+    public static function getGlobalSearchEloquentQuery(): EloquentBuilder
     {
         return parent::getGlobalSearchEloquentQuery()->with(['location']);
     }

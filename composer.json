@@ -32,6 +32,8 @@
         "laravel/octane": "^2.4",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
+        "league/flysystem-aws-s3-v3": "^3.0",
+        "league/flysystem-ftp": "^3.0",
         "livewire/livewire": "^3.0",
         "monicahq/laravel-cloudflare": "^3.7",
         "spatie/laravel-ignition": "^2.8"

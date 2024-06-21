@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Item;
 use App\Models\Location;
+use App\Models\Team;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;
 
@@ -21,7 +22,7 @@ class ItemFactory extends Factory
             'description' => $this->faker->text(),
             'import_ref' => $this->faker->word(),
             'notes' => $this->faker->word(),
-            'quantity' => $this->faker->randomNumber(),
+            'quantity' => $this->faker->randomNumber(3),
             'insured' => $this->faker->boolean(),
             'archived' => $this->faker->boolean(),
             'asset_id' => $this->faker->randomNumber(),
@@ -40,6 +41,9 @@ class ItemFactory extends Factory
             'sold_notes' => $this->faker->word(),
 
             'location_id' => Location::factory(),
+
+            'team_id' => Team::first()?->id ?? Team::factory()->create()->id,
+
         ];
     }
 }
