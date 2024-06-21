@@ -5,6 +5,7 @@ namespace App\Filament\Widgets;
 use App\Filament\Resources\ItemResource;
 use App\Models\Item;
 use Filament\Tables;
+use Filament\Tables\Columns\TextInputColumn;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
 
@@ -22,17 +23,15 @@ class RecentlyAdded extends BaseWidget
             ->defaultSort('created_at', 'desc')
             ->columns([
                 Tables\Columns\TextColumn::make('name')
-                    ->searchable()->sortable(),
-                Tables\Columns\TextColumn::make('quantity')
-                    ->searchable()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('location.name')
-                    ->searchable()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('purchase_price')
-                    ->searchable()
-                    ->sortable(),
-                Tables\Columns\CheckboxColumn::make('insured'),
+                    ->searchable()->sortable()->toggleable(),
+
+                TextInputColumn::make('quantity')->searchable()->rules(['integer'])->toggleable()->extraAttributes(['class' => 'w-32'])->type('number')->alignCenter(),
+
+                Tables\Columns\TextColumn::make('location.name')->searchable()->sortable()->toggleable(),
+
+                Tables\Columns\TextColumn::make('purchase_price')->searchable()->sortable()->toggleable(),
+
+                Tables\Columns\CheckboxColumn::make('insured')->toggleable(),
             ])
             ->actions([
                 Tables\Actions\Action::make('open')

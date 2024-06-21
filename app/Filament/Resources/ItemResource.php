@@ -27,6 +27,7 @@ use Filament\Tables\Actions\RestoreAction;
 use Filament\Tables\Actions\RestoreBulkAction;
 use Filament\Tables\Columns\CheckboxColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\TextInputColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -83,8 +84,9 @@ class ItemResource extends Resource
                     ->required(),
 
                 Textarea::make('description')
-                    ->label('Item description')->columnSpanFull()->rows(5
-                    )->autosize(),
+                    ->label('Item description')
+                    ->columnSpanFull()
+                    ->rows(5)->autosize(),
 
                 // todo: add tags https://filamentphp.com/plugins/filament-spatie-tags
 
@@ -95,10 +97,13 @@ class ItemResource extends Resource
 
                         TextInput::make('import_ref'),
 
-                        TextInput::make('notes'),
+                        Textarea::make('notes')->columnSpanFull()->rows(3)->autosize(),
 
-                        TextInput::make('quantity')
+                        \LaraZeus\Quantity\Components\Quantity::make('quantity')
+//                            ->heading('Quantity')
                             ->default(1)
+                            ->stacked()
+                            ->label('Quantity')
                             ->required()
                             ->integer(),
 
@@ -175,62 +180,64 @@ class ItemResource extends Resource
     {
         return $table
             ->columns([
-                // TextColumn::make('ulid'),
+                TextColumn::make('ulid')->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('name')
                     ->searchable()
                     ->sortable(),
 
-                // TextColumn::make('description')->searchable(),
+                TextColumn::make('description')->searchable()->toggleable(isToggledHiddenByDefault: true),
 
-                // TextColumn::make('import_ref')->searchable(),
+                TextColumn::make('import_ref')->searchable()->toggleable(isToggledHiddenByDefault: true),
 
-                // TextColumn::make('notes')->searchable(),
+                TextColumn::make('notes')->searchable()->toggleable(isToggledHiddenByDefault: true),
 
-                TextColumn::make('quantity')->searchable(),
+                TextInputColumn::make('quantity')->searchable()->rules(['integer'])->toggleable()->extraAttributes(['class' => 'w-32'])->type('number')->alignCenter(),
 
-                CheckboxColumn::make('insured'),
+                CheckboxColumn::make('insured')->toggleable(),
 
-                CheckboxColumn::make('archived'),
+                CheckboxColumn::make('archived')->toggleable(),
 
                 TextColumn::make('asset_id')
+                    ->label('Asset ID')
                     ->searchable()
                     ->copyable()
                     ->copyMessage('Asset ID copied')
-                    ->copyMessageDuration(1500),
+                    ->copyMessageDuration(1500)
+                    ->toggleable(),
                 //
-                //                TextColumn::make('serial_number')->searchable(),
-                //
-                //                TextColumn::make('model_number')->searchable(),
-                //
-                //                TextColumn::make('manufacturer')->searchable(),
-                //
-                //                TextColumn::make('lifetime_warranty'),
-                //
-                //                TextColumn::make('warranty_expires')
-                //                    ->date(),
-                //
-                //                TextColumn::make('warranty_details'),
-                //
-                //                TextColumn::make('purchase_time')
-                //                    ->date(),
-                //
-                //                TextColumn::make('purchase_from')->searchable(),
-                //
-                //                TextColumn::make('purchase_price')->searchable(),
-                //
-                //                TextColumn::make('sold_time')
-                //                    ->date(),
-                //
-                //                TextColumn::make('sold_to')->searchable(),
-                //
-                //                TextColumn::make('sold_price')->searchable(),
-                //
-                //                TextColumn::make('sold_notes')->searchable(),
+                TextColumn::make('serial_number')->searchable()->toggleable(isToggledHiddenByDefault: true),
+
+                TextColumn::make('model_number')->searchable()->toggleable(isToggledHiddenByDefault: true),
+
+                TextColumn::make('manufacturer')->searchable()->toggleable(isToggledHiddenByDefault: true),
+
+                TextColumn::make('lifetime_warranty')->toggleable(isToggledHiddenByDefault: true),
+
+                TextColumn::make('warranty_expires')
+                    ->date()->toggleable(isToggledHiddenByDefault: true),
+
+                TextColumn::make('warranty_details')->toggleable(isToggledHiddenByDefault: true),
+
+                TextColumn::make('purchase_time')
+                    ->date()->toggleable(isToggledHiddenByDefault: true),
+
+                TextColumn::make('purchase_from')->searchable()->toggleable(isToggledHiddenByDefault: true),
+
+                TextColumn::make('purchase_price')->searchable()->toggleable(isToggledHiddenByDefault: true),
+
+                TextColumn::make('sold_time')
+                    ->date()->toggleable(isToggledHiddenByDefault: true),
+
+                TextColumn::make('sold_to')->searchable()->toggleable(isToggledHiddenByDefault: true),
+
+                TextColumn::make('sold_price')->searchable()->toggleable(isToggledHiddenByDefault: true),
+
+                TextColumn::make('sold_notes')->searchable()->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('location.name')
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()->toggleable(),
             ])
             ->filters([
                 TrashedFilter::make(),

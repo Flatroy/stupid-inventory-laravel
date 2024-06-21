@@ -1,12 +1,32 @@
 {
-    "name": "laravel/laravel",
+    "name": "flatroy/stupid-inventory-laravel",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
+    "description": "Simple stupid inventory and organization system built for the Home User.",
+    "keywords": [
+        "laravel",
+        "inventory",
+        "inventory-management",
+        "filament",
+        "livewire",
+        "jetstream-laravel"
+    ],
     "license": "MIT",
+    "homepage": "https://github.com/Flatroy/stupid-inventory-laravel",
+    "support": {
+        "issues": "https://github.com/Flatroy/stupid-inventory-laravel/issues",
+        "source": "https://github.com/Flatroy/stupid-inventory-laravel"
+    },
+    "authors": [
+        {
+            "name": "George Daneke",
+            "email": "stupidinventory@hidemail.app",
+            "role": "Owner"
+        }
+    ],
     "require": {
         "php": "^8.2",
         "filament/filament": "^3.2",
+        "lara-zeus/quantity": "^1.0",
         "laravel/framework": "^11.9",
         "laravel/jetstream": "^5.1",
         "laravel/octane": "^2.4",
@@ -55,7 +75,7 @@
             "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
             "@php artisan migrate --graceful --ansi"
         ],
-        "pint": "./vendor/bin/pint --dirty"
+        "pint": "./vendor/bin/pint"
     },
     "extra": {
         "laravel": {
