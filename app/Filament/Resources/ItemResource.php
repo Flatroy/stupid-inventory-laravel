@@ -6,6 +6,7 @@ use App\Filament\Exports\ItemExporter;
 use App\Filament\Imports\ItemImporter;
 use App\Filament\Resources\ItemResource\Pages;
 use App\Models\Item;
+use Filament\Facades\Filament;
 use Filament\Forms\Components\Builder;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DatePicker;
@@ -87,6 +88,7 @@ class ItemResource extends Resource
                 TextInput::make('name')
                     ->label('Item name')
                     ->columnSpanFull()
+                    ->autofocus()
                     ->required(),
 
                 Textarea::make('description')
@@ -315,7 +317,9 @@ class ItemResource extends Resource
             ])
             ->headerActions([
                 ImportAction::make()
-                    ->importer(ItemImporter::class),
+                    ->importer(ItemImporter::class)->options([
+                        'team_id' => Filament::getTenant()?->id,
+                    ]),
                 ExportAction::make()->exporter(ItemExporter::class),
             ])
             ->bulkActions([
@@ -357,6 +361,8 @@ class ItemResource extends Resource
     public static function getGlobalSearchResultDetails(Model $record): array
     {
         $details = [];
+
+        $record->load('location');
 
         if ($record->location) {
             $details['Location'] = $record->location->name;
