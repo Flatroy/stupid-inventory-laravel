@@ -24,7 +24,7 @@ class LocationResource extends Resource
 
     protected static ?string $slug = 'locations';
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-map-pin';
 
     protected static ?string $recordTitleAttribute = 'name';
 
@@ -34,6 +34,7 @@ class LocationResource extends Resource
             ->schema([
 
                 TextInput::make('name')
+                    ->autofocus()
                     ->required(),
 
                 Select::make('parent_id')->label('Parent Location')

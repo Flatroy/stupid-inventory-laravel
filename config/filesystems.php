@@ -75,6 +75,7 @@ return [
             'username' => env('FTP_USERNAME'),
             'password' => env('FTP_PASSWORD'),
             'port' => 21,
+            'timeout' => 30,
         ],
     ],
 

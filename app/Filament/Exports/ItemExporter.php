@@ -24,7 +24,7 @@ class ItemExporter extends Exporter
             ExportColumn::make('quantity'),
             ExportColumn::make('insured'),
             ExportColumn::make('archived'),
-            ExportColumn::make('asset_id'),
+            ExportColumn::make('asset_id')->label('Asset ID'),
             ExportColumn::make('serial_number'),
             ExportColumn::make('model_number'),
             ExportColumn::make('manufacturer'),

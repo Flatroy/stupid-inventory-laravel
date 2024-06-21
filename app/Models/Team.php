@@ -72,4 +72,9 @@ class Team extends JetstreamTeam implements HasCurrentTenantLabel
     {
         return $this->hasMany(Item::class);
     }
+
+    public function tags(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Tag::class);
+    }
 }

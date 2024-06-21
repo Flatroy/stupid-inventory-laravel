@@ -13,6 +13,7 @@ use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\SpatieTagsInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -28,6 +29,7 @@ use Filament\Tables\Actions\ImportAction;
 use Filament\Tables\Actions\RestoreAction;
 use Filament\Tables\Actions\RestoreBulkAction;
 use Filament\Tables\Columns\CheckboxColumn;
+use Filament\Tables\Columns\SpatieTagsColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\TextInputColumn;
 use Filament\Tables\Filters\TrashedFilter;
@@ -44,7 +46,7 @@ class ItemResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-archive-box';
 
     public static function form(Form $form): Form
     {
@@ -75,6 +77,8 @@ class ItemResource extends Resource
                     ->searchable()
                     ->required(),
 
+                SpatieTagsInput::make('tags')->label('Labels'),
+
                 TextInput::make('ulid')
                     ->label('Unique ID')
                     ->disabled()
@@ -89,8 +93,6 @@ class ItemResource extends Resource
                     ->label('Item description')
                     ->columnSpanFull()
                     ->rows(5)->autosize(),
-
-                // todo: add tags https://filamentphp.com/plugins/filament-spatie-tags
 
                 Section::make('Advanced Details')
                     ->schema([
@@ -152,6 +154,7 @@ class ItemResource extends Resource
                                             ->reorderable()
                                             ->appendFiles()
                                             ->imageEditor()
+                                            ->downloadable()
                                             ->directory('image-attachments')
                                             ->visibility('private')
                                             ->image(),
@@ -235,6 +238,8 @@ class ItemResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('ulid')->toggleable(isToggledHiddenByDefault: true),
+
+                SpatieTagsColumn::make('tags')->searchable()->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('name')
                     ->searchable()

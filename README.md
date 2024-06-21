@@ -76,7 +76,7 @@ Still some part are in WIP status: I need to add queue worker to docker-compose.
   - [ ] Add docker-compose.yml for CI/CD
   - [ ] Add mounting volumes for sqlite database file and storage
 - [ ] Add more features
-  - [ ] Add tags to items - https://filamentphp.com/plugins/filament-spatie-tags
+  - [x] Add tags to items
   - [ ] Add attachments to items - https://filamentphp.com/plugins/filament-spatie-media-library
   - [ ] Show related items in Location view - https://filamentphp.com/docs/3.x/panels/resources/relation-managers#creating-a-relation-manager
   - [ ] Add QR code to items
@@ -85,6 +85,11 @@ Still some part are in WIP status: I need to add queue worker to docker-compose.
   - [x] Add Laravel Octane
   - [ ] Add Laravel Pulse
   - [x] Add nice Dashboard for home-screen
+  - [x] Add custom fields to items 
+    - [x] Paragraph field
+    - [x] Text field
+    - [x] File(s) field
+    - [x] Image field
 
 
 ## Contributing
