@@ -87,6 +87,7 @@ class Item extends Model
     {
         return $value ? sprintf('%03d-%03d', $value / 1000, $value % 1000) : null;
     }
+
     public function setAssetIdAttribute($value)
     {
         $value = preg_replace('/[^0-9]/', '', $value);

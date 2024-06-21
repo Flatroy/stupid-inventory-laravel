@@ -10,8 +10,6 @@ use Filament\Actions\Imports\ImportColumn;
 use Filament\Actions\Imports\Importer;
 use Filament\Actions\Imports\Models\Import;
 use Filament\Facades\Filament;
-use Illuminate\Log\Logger;
-use Illuminate\Support\Facades\Log;
 
 class ItemImporter extends Importer
 {
@@ -45,14 +43,14 @@ class ItemImporter extends Importer
                     // remove any non-numeric characters
                     $state = preg_replace('/[^0-9]/', '', $state);
 
-                    return (int)$state;
+                    return (int) $state;
                 })
                 ->rules([
                     'required',
-//                    \Illuminate\Validation\Rule::unique('items', 'asset_id')
-//                        ->where(function ($query) {
-//                            return $query->andWhere('team_id', Filament::auth()->user()->currentTeam->id);
-//                        })
+                    //                    \Illuminate\Validation\Rule::unique('items', 'asset_id')
+                    //                        ->where(function ($query) {
+                    //                            return $query->andWhere('team_id', Filament::auth()->user()->currentTeam->id);
+                    //                        })
                 ]),
             ImportColumn::make('serial_number'),
             ImportColumn::make('model_number'),
@@ -99,33 +97,29 @@ class ItemImporter extends Importer
 
     public function resolveRecord(): ?Item
     {
-//        return Item::firstOrNew([
-//            // Update existing records, matching them by `$this->data['column_name']`
-//            'asset_id' => $this->data['asset_id'],
-//            'team_id' => Filament::auth()->user()->currentTeam->id,
-//        ]);
+        //        return Item::firstOrNew([
+        //            // Update existing records, matching them by `$this->data['column_name']`
+        //            'asset_id' => $this->data['asset_id'],
+        //            'team_id' => Filament::auth()->user()->currentTeam->id,
+        //        ]);
         $item = new Item();
         $item->team_id = $this->options['team_id'];
+
         return $item;
     }
 
     public static function getCompletedNotificationBody(Import $import): string
     {
-        $body = 'Your item import has completed and ' . number_format($import->successful_rows) . ' ' . str('row')->plural($import->successful_rows) . ' imported.';
+        $body = 'Your item import has completed and '.number_format($import->successful_rows).' '.str('row')->plural($import->successful_rows).' imported.';
 
         if ($failedRowsCount = $import->getFailedRowsCount()) {
-            $body .= ' ' . number_format($failedRowsCount) . ' ' . str('row')->plural($failedRowsCount) . ' failed to import.';
+            $body .= ' '.number_format($failedRowsCount).' '.str('row')->plural($failedRowsCount).' failed to import.';
         }
 
         return $body;
     }
 
+    protected function beforeCreate(): void {}
 
-    protected function beforeCreate(): void
-    {
-    }
-
-    protected function beforeFill(): void
-    {
-    }
+    protected function beforeFill(): void {}
 }
