@@ -37,6 +37,7 @@
         "league/flysystem-ftp": "^3.0",
         "livewire/livewire": "^3.0",
         "monicahq/laravel-cloudflare": "^3.7",
+        "pxlrbt/filament-spotlight": "^1.2",
         "spatie/laravel-ignition": "^2.8"
     },
     "require-dev": {
