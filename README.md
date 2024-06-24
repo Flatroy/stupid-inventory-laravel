@@ -67,7 +67,7 @@ Still some part are in WIP status: I need to add queue worker to docker-compose.
 - [x] Users/Teams/Invite to team/Registration/Login - via Laravel Jetstream
 - [ ] Add Dockerfile and docker-compose.yml - https://serversideup.net/open-source/docker-php/ or dunglas/frankenphp
   - [x] Add Dockerfile
-  - [ ] Add docker-compose.yml
+  - [x] Add docker-compose.yml
   - [ ] Add queue worker to docker-compose.yml
   - [ ] Add building frontend with docker
   - [ ] Add docker-compose.yml for production
@@ -97,6 +97,7 @@ Still some part are in WIP status: I need to add queue worker to docker-compose.
     - [x] File(s) field
     - [x] Image field
   - [x] Add spotlight. Click: CTRL + K or CMD + K or CTRL + / or CMD + /
+  - [x] Add Label Generator
 
 
 ## Contributing

@@ -49,7 +49,7 @@ class Item extends Model
         static::creating(function ($item) {
             $item->ulid = self::generateUlid();
             if (auth()->check()) {
-                $item->team_id = Filament::getTenant()?->id;
+                $item->team_id = Filament::getTenant()?->id ?: auth()->user()?->currentTeam()?->getChild()?->id;
             }
         });
     }
