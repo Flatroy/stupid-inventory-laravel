@@ -82,6 +82,6 @@ class User extends Authenticatable implements FilamentUser, HasTenants //, MustV
 
     public function canAccessTenant(Model $tenant): bool
     {
-        return $this->allTeams()->count();
+        return $this->teams()->whereKey($tenant)->exists() || $this->ownsTeam($tenant);
     }
 }

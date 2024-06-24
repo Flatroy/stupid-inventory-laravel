@@ -18,7 +18,10 @@ use Filament\Forms\Components\SpatieTagsInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
+use Filament\Infolists\Components\ImageEntry;
 use Filament\Resources\Resource;
+use Filament\Support\Enums\MaxWidth;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\DeleteBulkAction;
@@ -116,6 +119,7 @@ class ItemResource extends Resource
                             ->label('Asset ID')
                             // must be like 000-000 but stored as int
                             ->rules([
+                                'unique:items,asset_id',
                                 'required',
                             ]),
 
@@ -266,7 +270,11 @@ class ItemResource extends Resource
 
                 TextColumn::make('asset_id')
                     ->label('Asset ID')
-                    ->searchable()
+                    ->searchable(
+                        /*query: function ($query, string $search) {
+                            return $query->searchAssetId($search);
+                        }*/
+                    )
                     ->copyable()
                     ->copyMessage('Asset ID copied')
                     ->copyMessageDuration(1500)
@@ -309,6 +317,18 @@ class ItemResource extends Resource
                 TrashedFilter::make(),
             ])
             ->actions([
+                Action::make('ShowQrCode')
+                    ->iconButton()
+                    ->icon('heroicon-o-qr-code')
+                    ->modalHeading('QR Code:')
+                    ->action(function () {})
+                    ->label('Show QR Code')
+                    ->modalSubmitAction(false)
+                    ->modalWidth(MaxWidth::Small)
+                    ->modalCancelAction(fn ($action) => $action->label('Close'))
+                    ->infolist([
+                        ImageEntry::make('qr_code_url')->size(300)->label(''),
+                    ]),
                 EditAction::make(),
                 DeleteAction::make(),
                 RestoreAction::make(),
@@ -349,7 +369,8 @@ class ItemResource extends Resource
 
     public static function getGlobalSearchEloquentQuery(): EloquentBuilder
     {
-        return parent::getGlobalSearchEloquentQuery()->with(['location']);
+
+        return parent::getGlobalSearchEloquentQuery()->with(['location', 'tags']);
     }
 
     public static function getGloballySearchableAttributes(): array
@@ -361,11 +382,16 @@ class ItemResource extends Resource
     {
         $details = [];
 
-        $record->load('location');
+        $record->load(['location', 'tags']);
 
         if ($record->location) {
             $details['Location'] = $record->location->name;
         }
+        if ($record->tags) {
+            $details['Labels'] = $record->tags->pluck('name')->join(', ');
+        }
+
+        $details['Asset ID'] = $record->asset_id;
 
         return $details;
     }

@@ -36,6 +36,7 @@ class AppPanelProvider extends PanelProvider
             ->login(Login::class)
             ->registration()
             ->passwordReset()
+            ->globalSearchKeyBindings(['command+k', 'ctrl+k'])
             // ->emailVerification()
             ->tenant(Team::class)
             ->tenantRegistration(RegisterTeam::class)

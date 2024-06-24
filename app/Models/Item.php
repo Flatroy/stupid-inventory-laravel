@@ -2,7 +2,12 @@
 
 namespace App\Models;
 
+use BaconQrCode\Renderer\Image\SvgImageBackEnd;
+use BaconQrCode\Renderer\ImageRenderer;
+use BaconQrCode\Renderer\RendererStyle\RendererStyle;
+use BaconQrCode\Writer;
 use Filament\Facades\Filament;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -93,5 +98,28 @@ class Item extends Model
         $value = preg_replace('/[^0-9]/', '', $value);
 
         $this->attributes['asset_id'] = (int) $value;
+    }
+
+    public function getQRCodeUrlAttribute(): string
+    {
+        $origin = rtrim(config('app.url'), '/');
+        $data = "{$origin}/a/{$this->asset_id}"; // TODO add team_id ?
+
+        $renderer = new ImageRenderer(
+            new RendererStyle(300),
+            new SvgImageBackEnd()
+        );
+        $writer = new Writer($renderer);
+
+        $svg = $writer->writeString($data);
+
+        $svgBase64 = base64_encode($svg);
+
+        return 'data:image/svg+xml;base64,'.$svgBase64;
+    }
+
+    public function scopeSearchAssetId(Builder $query, string $search) // : Builder
+    {
+        // TODO: add search by asset ID like in XXX-XXX format
     }
 }
