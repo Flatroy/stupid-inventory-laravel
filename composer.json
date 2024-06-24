@@ -10,7 +10,7 @@
         "livewire",
         "jetstream-laravel"
     ],
-    "license": "MIT",
+    "license": "AGPL-3.0-or-later",
     "homepage": "https://github.com/Flatroy/stupid-inventory-laravel",
     "support": {
         "issues": "https://github.com/Flatroy/stupid-inventory-laravel/issues",
