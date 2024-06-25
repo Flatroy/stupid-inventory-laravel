@@ -8,6 +8,7 @@ use Filament\Tables;
 use Filament\Tables\Columns\Layout\Stack;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
+use Illuminate\Database\Eloquent\Builder;
 
 class Locations extends BaseWidget
 {
@@ -19,12 +20,15 @@ class Locations extends BaseWidget
     {
         return $table
             ->query(LocationResource::getEloquentQuery()->where('parent_id', null))
+            ->modifyQueryUsing(fn (Builder $query) => $query->withCount('items'))
             ->defaultPaginationPageOption(15)
             ->defaultSort('created_at', 'desc')
             ->columns([
                 Stack::make([
                     Tables\Columns\TextColumn::make('name')
-                        ->searchable()->sortable(),
+                        ->searchable()
+                        ->suffix(fn (Location $record
+                        ): string => $record->items_count > 0 ? ' ('.$record->items_count.' items)' : ''),
                 ]),
             ])
             ->contentGrid([
