@@ -30,6 +30,7 @@ use Filament\Tables\Actions\ExportAction;
 use Filament\Tables\Actions\ForceDeleteAction;
 use Filament\Tables\Actions\ForceDeleteBulkAction;
 use Filament\Tables\Actions\ImportAction;
+use Filament\Tables\Actions\ReplicateAction;
 use Filament\Tables\Actions\RestoreAction;
 use Filament\Tables\Actions\RestoreBulkAction;
 use Filament\Tables\Columns\CheckboxColumn;
@@ -333,6 +334,9 @@ class ItemResource extends Resource
                     ->infolist([
                         ImageEntry::make('qr_code_url')->size(300)->label(''),
                     ]),
+                ReplicateAction::make()
+                    ->excludeAttributes(['quantity', 'asset_id', 'ulid', 'created_at', 'updated_at', 'deleted_at'])
+                    ->modal(false)->iconButton(),
                 EditAction::make(),
                 DeleteAction::make(),
                 RestoreAction::make(),
