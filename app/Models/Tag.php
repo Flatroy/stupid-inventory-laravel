@@ -29,4 +29,9 @@ class Tag extends \Spatie\Tags\Tag
     {
         return $this->belongsTo(Team::class);
     }
+
+    public function items(): \Illuminate\Database\Eloquent\Relations\MorphToMany
+    {
+        return $this->morphedByMany(Item::class, 'taggable');
+    }
 }
