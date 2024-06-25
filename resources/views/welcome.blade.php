@@ -98,7 +98,7 @@
         <div class="container mx-auto px-6">
             <h2 class="text-3xl font-bold mb-8 text-center">Why We Built HomeStock</h2>
             <p class="text-xl text-center max-w-3xl mx-auto mb-8">As homeowners ourselves, we understand the challenges of managing a household. We created HomeStock to solve our own organization problems and are excited to share it with you.</p>
-            <p class="text-center text-gray-600">Featured on Product Hunt and Indie Hackers as a top emerging home management tool.</p>
+{{--            <p class="text-center text-gray-600">Featured on [] and [] as a top emerging home management tool.</p>--}}
         </div>
     </section>
 
@@ -176,10 +176,6 @@
                 <div class="mb-8">
                     <h3 class="text-xl font-bold mb-2">Is there a limit to how many items I can add?</h3>
                     <p>The free self-hosted plan and Pro plan have no item limits. The Basic plan allows up to 500 items, which is sufficient for most small households.</p>
-                </div>
-                <div class="mb-8">
-                    <h3 class="text-xl font-bold mb-2">Do you offer customer support?</h3>
-                    <p>Yes, we offer email support for all paid plans, with priority support for Pro users. Free self-hosted users can access community support through our forums and documentation.</p>
                 </div>
             </div>
         </div>
