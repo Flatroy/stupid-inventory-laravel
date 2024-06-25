@@ -48,4 +48,9 @@ class Location extends Model
     {
         return $this->belongsTo(Team::class);
     }
+
+    public function items(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Item::class);
+    }
 }

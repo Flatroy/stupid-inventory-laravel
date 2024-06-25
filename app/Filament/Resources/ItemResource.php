@@ -289,19 +289,22 @@ class ItemResource extends Resource
                 TextColumn::make('lifetime_warranty')->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('warranty_expires')
-                    ->date()->toggleable(isToggledHiddenByDefault: true),
+                    ->date()
+                    ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('warranty_details')->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('purchase_time')
-                    ->date()->toggleable(isToggledHiddenByDefault: true),
+                    ->date()
+                    ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('purchase_from')->searchable()->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('purchase_price')->searchable()->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('sold_time')
-                    ->date()->toggleable(isToggledHiddenByDefault: true),
+                    ->date()
+                    ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('sold_to')->searchable()->toggleable(isToggledHiddenByDefault: true),
 
@@ -311,7 +314,8 @@ class ItemResource extends Resource
 
                 TextColumn::make('location.name')
                     ->searchable()
-                    ->sortable()->toggleable(),
+                    ->sortable()
+                    ->toggleable(),
             ])
             ->filters([
                 TrashedFilter::make(),

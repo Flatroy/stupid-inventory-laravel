@@ -123,11 +123,19 @@ class LocationResource extends Resource
             // to make separate pages you can uncomment this:
             /*'create' => Pages\CreateLocation::route('/create'),*/
             'edit' => Pages\EditLocation::route('/{record}/edit'),
+            'view' => Pages\ViewLocation::route('/{record}'),
         ];
     }
 
     public static function getGloballySearchableAttributes(): array
     {
         return ['name'];
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            \App\Filament\Resources\LocationResource\RelationManagers\ItemsRelationManager::class,
+        ];
     }
 }

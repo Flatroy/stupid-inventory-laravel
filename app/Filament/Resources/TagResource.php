@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\TagResource\Pages;
+use App\Filament\Resources\TagResource\RelationManagers\ItemsRelationManager;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -66,6 +67,7 @@ class TagResource extends Resource
             'index' => Pages\ListTags::route('/'),
             // 'create' => Pages\CreateTag::route('/create'),
             // 'edit' => Pages\EditTag::route('/{record}/edit'),
+            'view' => Pages\ViewTag::route('/{record}'),
         ];
     }
 
@@ -73,6 +75,13 @@ class TagResource extends Resource
     {
         return [
             'name',
+        ];
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            ItemsRelationManager::class,
         ];
     }
 }
