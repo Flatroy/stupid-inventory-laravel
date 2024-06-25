@@ -1,5 +1,6 @@
 <?php
 
+use App\Filament\Resources\ItemResource;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -27,6 +28,5 @@ Route::get('/a/{asset_id}', function (string $asset_id) {
         $asset->save();
     }
 
-    // http://127.0.0.1:8000/app/1/items/104/edit
-    return redirect()->to('/app/'.$asset->team_id.'/items/'.$asset->id.'/edit');
+    return redirect()->to(ItemResource::getUrl('edit', ['record' => $asset]));
 })->name('asset');

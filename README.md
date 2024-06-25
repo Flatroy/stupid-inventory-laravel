@@ -77,17 +77,17 @@ Still some part are in WIP status: I need to add queue worker to docker-compose.
   - [ ] Add mounting volumes for sqlite database file and storage
 - [ ] Add more features
   - [x] Add tags to items
-  - [ ] Add attachments to items - https://filamentphp.com/plugins/filament-spatie-media-library
-  - [ ] Show related items in Location view - https://filamentphp.com/docs/3.x/panels/resources/relation-managers#creating-a-relation-manager
-  - [ ] Add QR code to items
+  - [ ] Add attachments to items - https://filamentphp.com/plugins/filament-spatie-media-library (for now we have custom field for files and images)
+  - [x] Show related items in Location and Tag pages
+  - [x] Add QR code to items
   - [x] Add multi-tenancy support - https://filamentphp.com/docs/3.x/panels/tenancy
     - [ ] Fix ItemImporter to support multi-tenancy with queue. Team ID is not set up correctly for now on async driver  
-  - [ ] Add better import/export of items with relation to locations
-    - [x] Add import of locations. if location by name not found it will create new one
-    - [ ] Support labels/tags during import
-    - [ ] Support attachments during import
-    - [ ] Support nested path exports (e.g. `Home / Office / Desk`)
-    - [ ] Support custom fields during import
+  - [x] Add better import/export of items with relation to locations
+  - [x] Add import of locations. if location by name not found it will create new one
+  - [ ] Support labels/tags during import
+  - [ ] Support attachments during import
+  - [ ] Support nested path exports (e.g. `Home / Office / Desk`)
+  - [ ] Support custom fields during import
   - [x] Add Laravel Octane
   - [ ] Add Laravel Pulse
   - [x] Add nice Dashboard for home-screen
@@ -98,6 +98,7 @@ Still some part are in WIP status: I need to add queue worker to docker-compose.
     - [x] Image field
   - [x] Add spotlight. Click: CTRL + K or CMD + K or CTRL + / or CMD + /
   - [x] Add Label Generator
+  - [ ] Add REST API
 
 
 ## Contributing
