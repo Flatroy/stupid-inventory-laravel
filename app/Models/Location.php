@@ -39,7 +39,7 @@ class Location extends Model
         return $this->belongsTo(Location::class);
     }
 
-    public function childrens(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function children(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(Location::class, 'parent_id');
     }

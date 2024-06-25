@@ -88,9 +88,6 @@ class LocationResource extends Resource
                 //                Split::make([
 
                 TextColumn::make('name')
-                    ->copyable()
-                    ->copyMessage('Location name copied')
-                    ->copyMessageDuration(1500)
                     ->label(__('Name'))
                     ->searchable()
                     ->sortable(),
@@ -136,6 +133,7 @@ class LocationResource extends Resource
     {
         return [
             \App\Filament\Resources\LocationResource\RelationManagers\ItemsRelationManager::class,
+            \App\Filament\Resources\LocationResource\RelationManagers\LocationsRelationManager::class,
         ];
     }
 }
