@@ -69,13 +69,9 @@ Still some part are in WIP status: I need to add queue worker to docker-compose.
   - [x] Add Dockerfile
   - [x] Add docker-compose.yml
   - [ ] Add queue worker to docker-compose.yml
-  - [ ] Add building frontend with docker
-  - [ ] Add docker-compose.yml for production
-  - [ ] Add docker-compose.yml for development
-  - [ ] Add docker-compose.yml for testing
-  - [ ] Add docker-compose.yml for CI/CD
-  - [ ] Add mounting volumes for sqlite database file and storage
-- [ ] Add more features
+  - [ ] Add ability to build frontend with docker
+  - [ ] Add docker-compose.yml for production, development, testing, CI/CD
+  - [ ] Add mounting volumes for sqlite database file/or mysql connection and storage
   - [x] Add tags to items
   - [ ] Add attachments to items - https://filamentphp.com/plugins/filament-spatie-media-library (for now we have custom field for files and images)
   - [x] Show related items in Location and Tag pages
@@ -106,7 +102,3 @@ Still some part are in WIP status: I need to add queue worker to docker-compose.
 Thank you for choosing to contribute to the project! Any contribution is welcome.
 
 
-
-#https://github.com/benjaminjonard/koillection/blob/1f9eb74309777e292118db899671db49ebacb395/Dockerfile.frankenphp
-#https://github.com/andrewdwallo/filament-companies
-# add https://github.com/awcodes/filament-table-repeater?tab=readme-ov-file for custom fileds
