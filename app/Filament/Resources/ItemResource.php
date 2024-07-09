@@ -37,6 +37,8 @@ use Filament\Tables\Columns\CheckboxColumn;
 use Filament\Tables\Columns\SpatieTagsColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\TextInputColumn;
+use Filament\Tables\Enums\FiltersLayout;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
@@ -320,8 +322,32 @@ class ItemResource extends Resource
                     ->toggleable(),
             ])
             ->filters([
+                SelectFilter::make('location_id')
+                    ->relationship('location', 'name')
+                    ->label('Location')
+                    ->multiple()
+                    ->searchable()
+                    ->preload(),
+                SelectFilter::make('tags')
+                    ->label('Label')
+                    ->relationship('tags', 'name')
+                    ->searchable()
+                    ->multiple()
+                    ->preload(),
+
+                SelectFilter::make('insured')
+                    ->options([
+                        true => 'Yes',
+                        false => 'No',
+                    ]),
+                SelectFilter::make('archived')
+                    ->options([
+                        true => 'Yes',
+                        false => 'No',
+                    ]),
                 TrashedFilter::make(),
             ])
+            ->filtersLayout(FiltersLayout::AboveContentCollapsible)
             ->actions([
                 Action::make('ShowQrCode')
                     ->iconButton()
@@ -378,7 +404,6 @@ class ItemResource extends Resource
 
     public static function getGlobalSearchEloquentQuery(): EloquentBuilder
     {
-
         return parent::getGlobalSearchEloquentQuery()->with(['location', 'tags']);
     }
 
