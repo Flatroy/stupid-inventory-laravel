@@ -140,6 +140,7 @@ class ItemResource extends Resource
                 Section::make('Custom Fields')
                     ->schema([
                         Builder::make('fields')
+                            ->label('')
                             ->blocks([
                                 Builder\Block::make('text_field')
                                     ->schema([
