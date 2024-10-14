@@ -76,12 +76,24 @@ class LabelsGenerator extends Page
                     ->label('Label Height (inches)')
                     ->numeric()
                     ->required()
-                    ->default($this->cardHeight),
+                    ->default($this->cardHeight)
+                    ->rules(['required', 'numeric', 'min:0.1', function($attribute, $value, $fail) {
+                        $availableHeight = $this->pageHeight - $this->pageTopPadding - $this->pageBottomPadding;
+                        if ($value > $availableHeight) {
+                            $fail("The card height must not exceed the available page height.");
+                        }
+                    }]),
                 TextInput::make('cardWidth')
                     ->label('Label Width (inches)')
                     ->numeric()
                     ->required()
-                    ->default($this->cardWidth),
+                    ->rules(['required', 'numeric', 'min:0.1', function($attribute, $value, $fail) {
+                        $availableWidth = $this->pageWidth - $this->pageLeftPadding - $this->pageRightPadding;
+                        if ($value > $availableWidth) {
+                            $fail("The card width must not exceed the available page width.");
+                        }
+                    }])
+            ->default($this->cardWidth),
                 TextInput::make('pageWidth')
                     ->label('Page Width (inches)')
                     ->numeric()
@@ -124,7 +136,7 @@ class LabelsGenerator extends Page
             ])->columns(2);
     }
 
-    public function generatePages($showNotification = true)
+    public function generatePages($showNotification = true): void
     {
         $this->validate();
         $this->init();
@@ -181,11 +193,10 @@ class LabelsGenerator extends Page
             ];
         }
 
-        $cols = floor($availablePageWidth / $this->cardWidth);
-        $rows = floor($availablePageHeight / $this->cardHeight);
-        $gapX = ($availablePageWidth - $cols * $this->cardWidth) / ($cols - 1);
-        $gapY = ($this->pageHeight - $rows * $this->cardHeight) / ($rows - 1);
-
+        $cols = max(1, floor($availablePageWidth / $this->cardWidth));
+        $rows = max(1, floor($availablePageHeight / $this->cardHeight));
+        $gapX = $cols > 1 ? ($availablePageWidth - $cols * $this->cardWidth) / ($cols - 1) : 0;
+        $gapY = $rows > 1 ? ($availablePageHeight - $rows * $this->cardHeight) / ($rows - 1) : 0;
         return [
             'cols' => $cols,
             'rows' => $rows,

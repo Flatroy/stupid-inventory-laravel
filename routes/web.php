@@ -12,7 +12,9 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::redirect('/dashboard', '/app')->name('dashboard');
+    Route::get('/dashboard', function () {
+        return redirect()->to('/app');
+    })->name('dashboard');
 });
 
 Route::get('/a/{asset_id}', function (string $asset_id) {
