@@ -95,7 +95,9 @@ Still some part are in WIP status: I need to add queue worker to docker-compose.
   - [x] Add spotlight. Click: CTRL + K or CMD + K or CTRL + / or CMD + /
   - [x] Add Label Generator
   - [ ] Add REST API
-
+  - [ ] Add backup  [via spatie package](https://github.com/shuvroroy/filament-spatie-laravel-backu)
+  - [ ] add https://github.com/CodeWithDennis/filament-select-tree
+ 
 
 ## Contributing
 
