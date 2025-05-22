@@ -18,7 +18,12 @@ Route::middleware([
 
 
     Route::get('/a/{asset_id}', function (string $asset_id) {
-        $team_id = auth()?->user()?->currentTeam()?->getChild()?->id ?: auth()->user()->ownedTeams()->first()->id;
+        $team_id = auth()?->user()?->currentTeam()?->getChild()?->id ?: auth()?->user()?->ownedTeams()?->first()?->id;
+
+        if (!$team_id) {
+
+            abort(404, 'No team found');
+        }
 
         // todo: put this logic in one place
         $asset_id = ltrim($asset_id, '0');
