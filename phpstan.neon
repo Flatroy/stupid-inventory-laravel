@@ -1,0 +1,22 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+    - vendor/nesbot/carbon/extension.neon
+    - phar://phpstan.phar/conf/bleedingEdge.neon
+
+parameters:
+
+    paths:
+        - app
+        - bootstrap/app.php
+        - config
+        - database
+        - routes
+        - public
+
+    level: max
+
+
+    # Larastan configuration
+    checkModelProperties: true
+    # Do not fail when analysing a subset of files with a baseline that includes other files
+    reportUnmatchedIgnoredErrors: false

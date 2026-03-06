@@ -43,6 +43,8 @@
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.16.5",
         "fakerphp/faker": "^1.24.1",
+        "larastan/larastan": "^3.0",
+        "laravel/boost": "^2.2",
         "laravel/pint": "^1.27.1",
         "laravel/sail": "^1.53",
         "mockery/mockery": "^1.6.12",
@@ -69,7 +71,8 @@
             "@php artisan filament:upgrade"
         ],
         "post-update-cmd": [
-            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
+            "@php artisan boost:update --ansi"
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
