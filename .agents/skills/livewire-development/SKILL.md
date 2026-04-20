@@ -1,22 +1,12 @@
 ---
 name: livewire-development
-description: "Develops reactive Livewire 3 components. Activates when creating, updating, or modifying Livewire components; working with wire:model, wire:click, wire:loading, or any wire: directives; adding real-time updates, loading states, or reactivity; debugging component behavior; writing Livewire tests; or when the user mentions Livewire, component, counter, or reactive UI."
+description: "Use for any task or question involving Livewire. Activate if user mentions Livewire, wire: directives, or Livewire-specific concepts like wire:model, wire:click, invoke this skill. Covers building new components, debugging reactivity issues, real-time form validation, loading states, migrating from Livewire 2 to 3, converting component formats (SFC/MFC/class-based), and performance optimization. Do not use for non-Livewire reactive UI (React, Vue, Alpine-only, Inertia.js) or standard Laravel forms without Livewire."
 license: MIT
 metadata:
   author: laravel
 ---
 
 # Livewire Development
-
-## When to Apply
-
-Activate this skill when:
-- Creating new Livewire components
-- Modifying existing component state or behavior
-- Debugging reactivity or lifecycle issues
-- Writing Livewire component tests
-- Adding Alpine.js interactivity to components
-- Working with wire: directives
 
 ## Documentation
 
