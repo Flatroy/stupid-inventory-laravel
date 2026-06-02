@@ -1,11 +1,8 @@
 {
     "agents": [
-        "junie",
-        "amp",
         "cursor",
         "codex",
         "opencode",
-        "gemini",
         "claude_code",
         "copilot"
     ],
