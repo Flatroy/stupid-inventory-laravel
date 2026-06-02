@@ -1,6 +1,7 @@
 <?php
 
 use App\Filament\Resources\ItemResource;
+use App\Models\Item;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -16,11 +17,10 @@ Route::middleware([
         return redirect()->to('/app');
     })->name('dashboard');
 
-
     Route::get('/a/{asset_id}', function (string $asset_id) {
         $team_id = auth()?->user()?->currentTeam()?->getChild()?->id ?: auth()?->user()?->ownedTeams()?->first()?->id;
 
-        if (!$team_id) {
+        if (! $team_id) {
 
             abort(404, 'No team found');
         }
@@ -29,12 +29,12 @@ Route::middleware([
         $asset_id = ltrim($asset_id, '0');
         $asset_id = ltrim($asset_id, '-');
 
-        $asset = \App\Models\Item::where('asset_id', $asset_id)
+        $asset = Item::where('asset_id', $asset_id)
             ->where('team_id', $team_id)
             ->first();
         if (! $asset) {
             // create new empty one with this asset id
-            $asset = new \App\Models\Item();
+            $asset = new Item;
             $asset->asset_id = $asset_id;
             $asset->team_id = $team_id;
             $asset->save();
@@ -43,4 +43,3 @@ Route::middleware([
         return redirect()->to(ItemResource::getUrl('edit', ['record' => $asset, 'tenant' => $team_id]));
     })->name('asset');
 });
-

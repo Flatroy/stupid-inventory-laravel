@@ -3,6 +3,8 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\LocationResource\Pages;
+use App\Filament\Resources\LocationResource\RelationManagers\ItemsRelationManager;
+use App\Filament\Resources\LocationResource\RelationManagers\LocationsRelationManager;
 use App\Models\Location;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\Placeholder;
@@ -118,7 +120,7 @@ class LocationResource extends Resource
         return [
             'index' => Pages\ListLocations::route('/'),
             // to make separate pages you can uncomment this:
-            /*'create' => Pages\CreateLocation::route('/create'),*/
+            /* 'create' => Pages\CreateLocation::route('/create'), */
             'edit' => Pages\EditLocation::route('/{record}/edit'),
             'view' => Pages\ViewLocation::route('/{record}'),
         ];
@@ -132,8 +134,8 @@ class LocationResource extends Resource
     public static function getRelations(): array
     {
         return [
-            \App\Filament\Resources\LocationResource\RelationManagers\ItemsRelationManager::class,
-            \App\Filament\Resources\LocationResource\RelationManagers\LocationsRelationManager::class,
+            ItemsRelationManager::class,
+            LocationsRelationManager::class,
         ];
     }
 }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Filament\Facades\Filament;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 class Tag extends \Spatie\Tags\Tag
 {
@@ -30,7 +31,7 @@ class Tag extends \Spatie\Tags\Tag
         return $this->belongsTo(Team::class);
     }
 
-    public function items(): \Illuminate\Database\Eloquent\Relations\MorphToMany
+    public function items(): MorphToMany
     {
         return $this->morphedByMany(Item::class, 'taggable');
     }

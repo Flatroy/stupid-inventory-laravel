@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\TagResource\Pages;
 use App\Filament\Resources\TagResource\RelationManagers\ItemsRelationManager;
+use App\Models\Tag;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -16,7 +17,7 @@ use Filament\Tables\Table;
 
 class TagResource extends Resource
 {
-    protected static ?string $model = \App\Models\Tag::class;
+    protected static ?string $model = Tag::class;
 
     protected static ?string $slug = 'tags';
 

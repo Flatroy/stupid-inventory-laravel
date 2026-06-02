@@ -65,7 +65,7 @@ class RecentlyAdded extends BaseWidget
                         ImageEntry::make('qr_code_url')->size(300)->label(''),
                     ]),
 
-                Tables\Actions\Action::make('open')
+                Action::make('open')
                     ->icon('heroicon-m-pencil-square')
                     ->url(fn (Item $record): string => ItemResource::getUrl('edit', ['record' => $record])),
                 Tables\Actions\DeleteAction::make(),

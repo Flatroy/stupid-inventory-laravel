@@ -16,7 +16,7 @@ use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable implements FilamentUser, HasTenants //, MustVerifyEmail
+class User extends Authenticatable implements FilamentUser, HasTenants // , MustVerifyEmail
 {
     use HasApiTokens;
     use HasFactory;

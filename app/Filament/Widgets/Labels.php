@@ -4,6 +4,7 @@ namespace App\Filament\Widgets;
 
 use App\Filament\Resources\TagResource;
 use App\Models\Tag;
+use Filament\Tables\Columns\Layout\View;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
 use Illuminate\Database\Eloquent\Builder;
@@ -25,10 +26,10 @@ class Labels extends BaseWidget
             ])
             ->columns([
 
-                \Filament\Tables\Columns\Layout\View::make('filament.widgets.labels'),
+                View::make('filament.widgets.labels'),
             ])
             ->recordUrl(
-                fn (Tag $record): string => \App\Filament\Resources\TagResource::getUrl('view', ['record' => $record]),
+                fn (Tag $record): string => TagResource::getUrl('view', ['record' => $record]),
             )
             ->paginated([
                 'limit' => 100,

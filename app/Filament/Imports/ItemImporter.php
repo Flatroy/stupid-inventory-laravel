@@ -4,12 +4,13 @@ namespace App\Filament\Imports;
 
 use App\Models\Item;
 use App\Models\Location;
-use App\Models\Team;
 use App\Models\User;
 use Filament\Actions\Imports\ImportColumn;
 use Filament\Actions\Imports\Importer;
 use Filament\Actions\Imports\Models\Import;
 use Filament\Facades\Filament;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 class ItemImporter extends Importer
 {
@@ -79,7 +80,7 @@ class ItemImporter extends Importer
             ImportColumn::make('location')
                 ->requiredMapping()
                 ->relationship(resolveUsing: function (string $state
-                ): \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model {
+                ): Builder|Model {
                     // find the location by name or id OR create a new location
                     // TODO check team_id
                     return Location::query()
@@ -102,7 +103,7 @@ class ItemImporter extends Importer
         //            'asset_id' => $this->data['asset_id'],
         //            'team_id' => Filament::auth()->user()->currentTeam->id,
         //        ]);
-        $item = new Item();
+        $item = new Item;
         $item->team_id = $this->options['team_id'];
 
         return $item;

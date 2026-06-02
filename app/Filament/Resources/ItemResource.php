@@ -44,6 +44,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use LaraZeus\Quantity\Components\Quantity;
 
 class ItemResource extends Resource
 {
@@ -111,7 +112,7 @@ class ItemResource extends Resource
 
                         Textarea::make('notes')->columnSpanFull()->rows(3)->autosize(),
 
-                        \LaraZeus\Quantity\Components\Quantity::make('quantity')
+                        Quantity::make('quantity')
                             ->default(1)
                             ->stacked()
                             ->label('Quantity')

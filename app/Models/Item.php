@@ -107,7 +107,7 @@ class Item extends Model
 
         $renderer = new ImageRenderer(
             new RendererStyle(300),
-            new SvgImageBackEnd()
+            new SvgImageBackEnd
         );
         $writer = new Writer($renderer);
 

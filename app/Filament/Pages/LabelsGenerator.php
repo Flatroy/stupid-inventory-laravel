@@ -185,6 +185,7 @@ class LabelsGenerator extends Page
         $rows = max(1, floor($availablePageHeight / $this->cardHeight));
         $gapX = $cols > 1 ? ($availablePageWidth - $cols * $this->cardWidth) / ($cols - 1) : 0;
         $gapY = $rows > 1 ? ($availablePageHeight - $rows * $this->cardHeight) / ($rows - 1) : 0;
+
         return [
             'cols' => $cols,
             'rows' => $rows,
@@ -262,7 +263,7 @@ class LabelsGenerator extends Page
 
         $renderer = new ImageRenderer(
             new RendererStyle(300),
-            new SvgImageBackEnd()
+            new SvgImageBackEnd
         );
         $writer = new Writer($renderer);
 

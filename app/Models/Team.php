@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Filament\Models\Contracts\HasCurrentTenantLabel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Laravel\Jetstream\Events\TeamCreated;
 use Laravel\Jetstream\Events\TeamDeleted;
 use Laravel\Jetstream\Events\TeamUpdated;
@@ -63,17 +64,17 @@ class Team extends JetstreamTeam implements HasCurrentTenantLabel
         return 'Current team';
     }
 
-    public function locations(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function locations(): HasMany
     {
         return $this->hasMany(Location::class);
     }
 
-    public function items(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function items(): HasMany
     {
         return $this->hasMany(Item::class);
     }
 
-    public function tags(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function tags(): HasMany
     {
         return $this->hasMany(Tag::class);
     }
