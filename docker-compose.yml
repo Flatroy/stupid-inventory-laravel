@@ -4,9 +4,13 @@ services:
             context: .
             dockerfile: Dockerfile
         ports:
-            - "4431:443"
-            - "4431:443/udp"
             - "801:80"
+            - "4431:443"
         volumes:
-            - .:/app
+            - stupid-inventory-storage:/app/storage
+            - stupid-inventory-db:/app/database
         restart: unless-stopped
+
+volumes:
+    stupid-inventory-storage:
+    stupid-inventory-db:

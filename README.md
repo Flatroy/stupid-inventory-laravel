@@ -7,43 +7,106 @@
 </p>
 
 
-## How to run with Docker
+## How to run with Docker (pre-built image)
 
-**Command list**
+A pre-built Docker image is published to GitHub Container Registry on every push to `main` and on version tags. This is the fastest way to run the app.
 
-In order to run the project with Docker you need to have Docker installed on your machine. If you don't have Docker installed you can follow the instructions on the official Docker website: https://docs.docker.com/get-docker/
+**Prerequisites:** [Docker](https://docs.docker.com/get-docker/) installed on your machine.
 
-The following commands will clone the repository
+### Quick start
+
+Pull and run the latest image:
+
+    docker run -d \
+      --name stupid-inventory \
+      -p 801:80 \
+      -v stupid-inventory-storage:/app/storage \
+      -v stupid-inventory-db:/app/database \
+      ghcr.io/flatroy/stupid-inventory-laravel:latest
+
+Then open http://localhost:801 in your browser.
+
+### What the image does on startup
+
+The entrypoint script automatically:
+- Generates the application key
+- Runs database migrations
+- Caches config, routes, and views
+- Publishes Filament assets
+
+### Persistent data
+
+The example above uses two named volumes to persist data across container restarts:
+- `stupid-inventory-storage` — uploaded files, logs, framework cache
+- `stupid-inventory-db` — SQLite database file
+
+### Using an external database (MySQL)
+
+To use MySQL instead of the default SQLite, pass the database environment variables:
+
+    docker run -d \
+      --name stupid-inventory \
+      -p 801:80 \
+      -v stupid-inventory-storage:/app/storage \
+      -e DB_CONNECTION=mysql \
+      -e DB_HOST=your-mysql-host \
+      -e DB_PORT=3306 \
+      -e DB_DATABASE=inventory \
+      -e DB_USERNAME=root \
+      -e DB_PASSWORD=secret \
+      ghcr.io/flatroy/stupid-inventory-laravel:latest
+
+### Available image tags
+
+| Tag | Description |
+|-----|-------------|
+| `latest` | Latest build from `main` branch |
+| `v1.0.0` | Specific version (Git tag) |
+| `1.0` | Major.minor version |
+| `1` | Major version |
+
+### Using docker-compose with the pre-built image
+
+Create a `docker-compose.yml`:
+
+    services:
+      app:
+        image: ghcr.io/flatroy/stupid-inventory-laravel:latest
+        ports:
+          - "801:80"
+        volumes:
+          - stupid-inventory-storage:/app/storage
+          - stupid-inventory-db:/app/database
+        restart: unless-stopped
+
+    volumes:
+      stupid-inventory-storage:
+      stupid-inventory-db:
+
+Then run:
+
+    docker compose up -d
+
+
+## How to build and run with Docker (from source)
+
+If you want to build the image yourself from the source code:
 
     git clone https://github.com/flatroy/stupid-inventory-laravel.git
-
-Go to the project directory
-
     cd stupid-inventory-laravel
 
-Copy the .env.example file to .env file with the following command or manually copy the file and rename it to .env
-
-    cp .env.example .env
-
-Run the following command to install the dependencies for PHP
- 
-    docker run --rm -it -v $PWD:/app composer:latest install --ignore-platform-req=ext-intl
-
-Run the following command to install the dependencies for Node.js (only to build the frontend, you can skip this step if you don't want to build the frontend with Docker)
-
-    docker run --rm -it -v $PWD:/app node:latest /bin/sh -c "cd /app && npm install -g bun && bun install && bun run build"
-
-Run the following command to build the Docker image or if you want to use docker compose you can skip this steps
-
     docker build -t stupid-inventory .
-    docker run -v $PWD:/app -p 4431:443 -it --rm --name my-stupid-inventory stupid-inventory 
 
-If you want to use docker compose you can run the following command
-    
-    docker-compose up -d
+    docker run -d \
+      --name stupid-inventory \
+      -p 801:80 \
+      -v stupid-inventory-storage:/app/storage \
+      -v stupid-inventory-db:/app/database \
+      stupid-inventory
 
+Or use the included `docker-compose.yml` for local development with volume mounting:
 
-Still some part are in WIP status: I need to add queue worker to docker-compose.yml as well as building the frontend within docker
+    docker compose up -d
 
 ## How to run locally (if you have PHP 8.3 and composer installed)
 
@@ -65,13 +128,14 @@ Still some part are in WIP status: I need to add queue worker to docker-compose.
 - [x] Items - add/edit/delete/import/export
 - [x] Locations - add/edit/delete
 - [x] Users/Teams/Invite to team/Registration/Login - via Laravel Jetstream
-- [ ] Add Dockerfile and docker-compose.yml - https://serversideup.net/open-source/docker-php/ or dunglas/frankenphp
-  - [x] Add Dockerfile
+- [x] Add Dockerfile and docker-compose.yml - https://serversideup.net/open-source/docker-php/ or dunglas/frankenphp
+  - [x] Add Dockerfile (multi-stage build with frontend assets)
   - [x] Add docker-compose.yml
+  - [x] Add ability to build frontend with docker
+  - [x] Add CI/CD pipeline to build and publish Docker image to ghcr.io
   - [ ] Add queue worker to docker-compose.yml
-  - [ ] Add ability to build frontend with docker
-  - [ ] Add docker-compose.yml for production, development, testing, CI/CD
-  - [ ] Add mounting volumes for sqlite database file/or mysql connection and storage
+  - [ ] Add docker-compose.yml for production, development, testing
+  - [x] Add mounting volumes for sqlite database file/or mysql connection and storage
   - [x] Add tags to items
   - [ ] Add attachments to items - https://filamentphp.com/plugins/filament-spatie-media-library (for now we have custom field for files and images)
   - [x] Show related items in Location and Tag pages
