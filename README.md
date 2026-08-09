@@ -26,6 +26,25 @@ Pull and run the latest image:
 
 Then open http://localhost:801 in your browser.
 
+### Creating your first user
+
+After starting the container, create an admin user with the built-in command:
+
+    docker exec -it stupid-inventory php artisan app:create-user
+
+This prompts you for a name, email, and password interactively. The command also creates a personal team for the user automatically.
+
+You can also pass all values non-interactively (useful for scripts and CI):
+
+    docker exec stupid-inventory php artisan app:create-user \
+      --name="Admin User" \
+      --email="admin@example.com" \
+      --password="secure-password" \
+      --team="My Home" \
+      --no-interaction
+
+Then log in at http://localhost:801/app/login with the credentials you set.
+
 ### What the image does on startup
 
 The entrypoint script automatically:
@@ -122,6 +141,14 @@ Or use the included `docker-compose.yml` for local development with volume mount
     php artisan migrate
     npm run build
     php artisan serve
+
+Then create your first user:
+
+    php artisan app:create-user
+
+Or non-interactively:
+
+    php artisan app:create-user --name="Admin" --email="admin@example.com" --password="password" --no-interaction
 
 
 ## TODO list
