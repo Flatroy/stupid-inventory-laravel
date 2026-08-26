@@ -19,6 +19,7 @@
         "infer-conventions",
         "fortify-development",
         "laravel-best-practices",
+        "testing-best-practices",
         "octane-development",
         "livewire-development",
         "tailwindcss-development"
