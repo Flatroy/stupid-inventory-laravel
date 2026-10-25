@@ -2,12 +2,12 @@
 
 These settings apply to the project and CI, not to individual tests. Read `rules/isolation.md` for choices within a test.
 
-Fetch `https://docs.phpunit.de/en/13.3/` for PHPUnit options that make test runs faster.
+Fetch the PHPUnit 11.5.57 documentation at `https://phpunit.de/documentation.html` for PHPUnit options that make test runs faster.
 Verify each flag in the documentation before adding it to CI.
 
 Measure before changing a setting. Find the slow test first, and apply a project-wide setting only after identifying the costly work.
 
-## The Environment
+## Test Environment
 
 - Set `BCRYPT_ROUNDS=4` in `.env.testing` or in `phpunit.xml`. The default value is 12, and the hash then takes most of the time of each test that signs a user in.
 - Disable XDebug. Disable pcov also, unless the run needs the coverage.
@@ -15,7 +15,7 @@ Measure before changing a setting. Find the slow test first, and apply a project
 - Use the `WithCachedConfig` and `WithCachedRoutes` traits, so the run does not parse the configuration and the routes for every test.
 - Call `withoutVite()`, or `withoutMix()`, so the framework does not resolve a built asset.
 
-## The Global Fakes
+## Global Fakes
 
 Put these three calls in the `setUp()` of the base `TestCase` of the project:
 

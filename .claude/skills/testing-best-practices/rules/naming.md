@@ -7,12 +7,12 @@
 - Follow the project's convention for fixture files. If none exists, put fixtures in `tests/Fixtures/` and load them by path.
 - Move large literal values out of the test body and into fixture files.
 
-## The Test Class and the Test Methods
+## Test Class and Methods
 
 - Extend the base `TestCase` of the project in each test class.
 - Give each test method the prefix `test_`, or add the `#[Test]` attribute to the method. Use the convention of the other files in the same directory.
 
-## The Names of the Tests
+## Naming Tests
 
 The name of a test method is a specification. Separate the words with underscores. State the user-visible result and the condition that causes it.
 

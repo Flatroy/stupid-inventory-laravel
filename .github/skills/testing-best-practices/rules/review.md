@@ -4,7 +4,7 @@ Check every item in this file. A passing test may still provide no value. For ea
 
 Report each finding. Do not delete or rewrite a test without the user's approval. When an issue appears throughout the suite as a convention, report the pattern once rather than every affected file.
 
-## The Value of the Test
+## Test Value
 
 - [ ] Each test covers observable behavior or an application contract, and passes after a change to the implementation that keeps the behavior.
 - [ ] Each tested declaration is exercised through behavior, and no test asserts the behavior of the framework. A test of what this project configures, such as a relation with a constraint, a cast, or a scope, belongs to this project.
@@ -17,7 +17,7 @@ Report each finding. Do not delete or rewrite a test without the user's approval
 - [ ] Each name states a result, the condition that causes it, and the status code for an API error.
 - [ ] Each test class extends the base `TestCase` of the project, and each file uses either the prefix `test_` or the `#[Test]` attribute consistently.
 
-## The Coverage
+## Coverage
 
 - [ ] HTTP tests cover authentication, authorization, role, scope, and validation when applicable.
 - [ ] A request for a record of a different tenant gets a status code that does not confirm that the record exists.
@@ -25,7 +25,7 @@ Report each finding. Do not delete or rewrite a test without the user's approval
 - [ ] Each validation rule has one test that asserts the user-visible message. When a unit test owns a matrix, reduce duplicate higher-level coverage to one case rather than deleting it.
 - [ ] Rendered user input and each dynamic part of a query have a security test.
 
-## The Data and the Determinism
+## Data and Determinism
 
 - [ ] Each test creates its mutable records directly or through a helper that it calls, and every created record arranges the behavior or supports an assertion.
 - [ ] `setUp()` holds configuration only.
@@ -34,18 +34,9 @@ Report each finding. Do not delete or rewrite a test without the user's approval
 - [ ] Time, randomness, sleep, and outbound HTTP are controlled.
 - [ ] Each test passes alone, and passes in the complete suite in any order.
 
-## The Assertions
+## Assertions
 
 - [ ] Each expected value is a known value, and the test does not calculate the value with the logic of the implementation.
 - [ ] Each test of a write operation asserts the response, the state in the database, and the side effects.
 - [ ] Each fake has one assertion, and gives the class names unless the test asserts the complete result.
 - [ ] Each group of assertions stays on one subject, and each comparison uses `assertSame()`.
-
-## The Defects to Report
-
-A review can find defects in the code rather than the tests. Report each defect below, and do not write a test that codifies it as correct behavior.
-
-- [ ] A method with no body.
-- [ ] A policy that exists, but that no action calls.
-- [ ] A write action with no validation.
-- [ ] A status code or a response shape that is different from the shape of a similar endpoint.

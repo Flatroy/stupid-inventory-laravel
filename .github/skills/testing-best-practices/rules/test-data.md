@@ -31,7 +31,7 @@ $organizations = Organization::factory()
 
 Create only the records required to arrange the behavior or support an assertion.
 
-## The Data Providers
+## Data Providers
 
 Use a data provider when the setup, test body, and assertions remain the same across input values.
 
@@ -57,11 +57,11 @@ Declare each data provider method as `public static`.
 
 Use parameterized tests for:
 
-- the cases of an enum
-- the roles and the plans
-- the boundary values
-- the input values that are not valid in the same way
-- the pairs of an input value and an output value
+- enum cases
+- roles and plans
+- boundary values
+- input values that are invalid in the same way
+- input and output value pairs
 
 Write separate tests if the cases need a different setup, a different behavior, or different assertions. One test function with a branch in the body is two tests in one function.
 

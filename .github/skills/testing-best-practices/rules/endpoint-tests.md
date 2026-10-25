@@ -6,7 +6,7 @@ Fetch `https://laravel.com/framework/docs/http-tests` for the request helpers, t
 
 Choose an assertion based on the subject of the check: the status, a header, a redirect, the JSON body, the session, a validation error, or the view. Laravel provides a named assertion for each subject that identifies the incorrect value.
 
-## The Coverage of an Endpoint
+## Endpoint Coverage
 
 Write a test for each applicable case:
 
@@ -19,7 +19,7 @@ Write a test for each applicable case:
 
 Assert the application's actual behavior rather than a generic status code. An API returns `401` for a missing or invalid token, while a browser endpoint redirects to the sign-in route.
 
-## The Isolation of a Tenant
+## Tenant Isolation
 
 Assert the status code returned for a cross-tenant request. Use `404` rather than `403` when one tenant must not learn that another tenant's record exists, because `403` confirms its existence.
 
@@ -31,11 +31,10 @@ An HTTP test shows that the endpoint performs authorization. It cannot identify 
 - Write one HTTP test for one refused role, which shows that the endpoint calls the authorization.
 - Use the helper of the project that asserts the ability and the arguments of the gate, if such a helper exists.
 
-## The Validation
+## Testing Validation
 
 - Write one test for each validation rule when each failure represents a separate contract.
 - Write one test with an empty payload to assert several required fields together.
-- Give the status code in the name of a test for an API.
 - Assert the text of the message that the user gets. A message that is present but wrong is a defect.
 - Use a data provider with the `#[DataProvider]` attribute for input values that need the same setup and the same assertions. Use the `#[TestWith]` attribute for a small set of values.
 
